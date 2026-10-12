@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Devices{% endblock %}
+{% block content %}
+<h1>Device Management</h1>
+{% if not logged_in %}
+  <div class="alert err">Not logged in — you can view devices but cannot toggle actuators. <a href="/login">Login</a></div>
+{% elif auth_error %}
+  <div class="alert err">{{ auth_error | replace('+', ' ') }}</div>
+{% endif %}
+<p class="muted">Rooms with motion, luminosity, thermometer sensors and bulbs, bells, fans, doors, HVAC actuators.</p>
+{% for room, devices in rooms.items() %}
+<section class="card room">
+  <h2>{{ room }}</h2>
+  {% if not devices %}<p class="muted">No devices yet (run provision/simulator).</p>{% endif %}
+  {% for d in devices %}
+  <div class="device">
+    <strong>{{ d.type }}</strong> <span class="meta">{{ d.id }}</span>
+    {% if d.state is defined and d.state is not none %}
+      <span class="badge {% if d.state in ['ON','OPEN','RINGING'] %}on{% else %}off{% endif %}">{{ d.state }}</span>
+    {% endif %}
+    {% if d.temperature is defined and d.temperature is not none %}<span class="badge">{{ d.temperature }} °C</span>{% endif %}
+    {% if d.luminosity is defined and d.luminosity is not none %}<span class="badge">{{ d.luminosity }} lux</span>{% endif %}
+    {% if d.motion is defined and d.motion is not none %}<span class="badge">motion={{ d.motion }}</span>{% endif %}
+    {% if d.targetTemperature is defined and d.targetTemperature is not none %}<span class="badge">target {{ d.targetTemperature }} °C</span>{% endif %}
+    {% if logged_in and user and user.can_toggle %}
+      <div style="margin-top:.4rem">
+        {% if d.type == 'Bulb' %}
+          <form style="display:inline" method="post" action="/devices/{{ d.id }}/command"><input type="hidden" name="command" value="bulb_on"/><button type="submit">On</button></form>
+          <form style="display:inline" method="post" action="/devices/{{ d.id }}/command"><input type="hidden" name="command" value="bulb_off"/><button class="secondary" type="submit">Off</button></form>
+        {% elif d.type == 'Fan' %}
+          <form style="display:inline" method="post" action="/devices/{{ d.id }}/command"><input type="hidden" name="command" value="fan_on"/><button type="submit">On</button></form>
+          <form style="display:inline" method="post" action="/devices/{{ d.id }}/command"><input type="hidden" name="command" value="fan_off"/><button class="secondary" type="submit">Off</button></form>
+        {% elif d.type == 'Door' %}
+          <form style="display:inline" method="post" action="/devices/{{ d.id }}/command"><input type="hidden" name="command" value="door_open"/><button type="submit">Open</button></form>
+          <form style="display:inline" method="post" action="/devices/{{ d.id }}/command"><input type="hidden" name="command" value="door_close"/><button class="secondary" type="submit">Close</button></form>
+        {% elif d.type == 'Bell' %}
+          <form style="display:inline" method="post" action="/devices/{{ d.id }}/command"><input type="hidden" name="command" value="bell_ring"/><button type="submit">Ring</button></form>
+        {% elif d.type == 'HVAC' %}
+          <form style="display:inline" method="post" action="/devices/{{ d.id }}/command">
+            <input type="hidden" name="command" value="hvac_set"/>
+            <input type="number" name="value" value="22" min="16" max="30" style="width:4.5rem;display:inline-block"/>
+            <button type="submit">Set °C</button>
+          </form>
+        {% endif %}
+      </div>
+    {% elif logged_in and user and not user.can_toggle and d.type in ['Bulb','Fan','Door','Bell','HVAC'] %}
+      <div class="muted" style="margin-top:.3rem">View-only (guest)</div>
+    {% endif %}
+  </div>
+  {% endfor %}
+</section>
+{% endfor %}
+{% endblock %}

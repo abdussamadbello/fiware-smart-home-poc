@@ -1,0 +1,406 @@
+# FIWARE Smart Home PoC — thesis-faithful reimplementation 2026
+# Maps to Abdussamad Bello MSc thesis (Atilim, Jan 2022) Table 6.1
+#
+# Profiles:
+#   core     — Orion + Mongo + IoT Agent JSON
+#   idm      — Keyrock + MySQL
+#   history  — QuantumLeap + CrateDB + Redis
+#   app      — Web app + device simulator
+#   full     — all of the above (default when no profile filter)
+#
+# Start (recommended):
+#   docker compose --profile full up -d
+# Low-RAM core only:
+#   docker compose --profile core --profile app up -d
+
+x-extra-hosts: &fiware-hosts
+  # Workaround: this box's docker bridge ICC is broken (container→container IP times out).
+  # Published ports via host gateway work, so resolve service names to host-gateway.
+  - "mongo-db:host-gateway"
+  - "orion:host-gateway"
+  - "iot-agent:host-gateway"
+  - "quantumleap:host-gateway"
+  - "crate-db:host-gateway"
+  - "redis-db:host-gateway"
+  - "keyrock:host-gateway"
+  - "mysql-db:host-gateway"
+  - "webapp:host-gateway"
+  - "mosquitto:host-gateway"
+  - "iot-agent-ul:host-gateway"
+
+services:
+  # ========== Context Information Management (Orion + MongoDB) ==========
+  mongo-db:
+    image: mongo:${MONGO_DB_VERSION:-6.0}
+    hostname: mongo-db
+    container_name: sh-mongo
+    # always-on core service (no profile filter)
+    networks: [smarthome]
+    extra_hosts: *fiware-hosts
+    ports:
+      - "${MONGO_DB_PORT:-27017}:27017"
+    volumes:
+      - mongo-data:/data/db
+    command: ["mongod", "--bind_ip_all", "--quiet"]
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+  orion:
+    image: quay.io/fiware/orion:${ORION_VERSION:-3.11.0}
+    hostname: orion
+    container_name: sh-orion
+    # always-on core service (no profile filter)
+    depends_on:
+      mongo-db:
+        condition: service_healthy
+    networks: [smarthome]
+    extra_hosts: *fiware-hosts
+    ports:
+      - "${ORION_PORT:-1026}:1026"
+    command: ["-dbhost", "mongo-db", "-logLevel", "INFO", "-corsOrigin", "__ALL"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:1026/version"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 40s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+  # ========== IoT Gateway (IoT Agent for JSON) ==========
+  iot-agent:
+    image: quay.io/fiware/iotagent-json:${IOTA_JSON_VERSION:-2.4.0}
+    hostname: iot-agent
+    container_name: sh-iot-agent
+    # always-on core service (no profile filter)
+    depends_on:
+      orion:
+        condition: service_healthy
+      mongo-db:
+        condition: service_healthy
+    networks: [smarthome]
+    extra_hosts: *fiware-hosts
+    ports:
+      - "${IOTA_NORTH_PORT:-4041}:4041"
+      - "${IOTA_SOUTH_PORT:-7896}:7896"
+    environment:
+      - IOTA_CB_HOST=orion
+      - IOTA_CB_PORT=1026
+      - IOTA_NORTH_PORT=4041
+      - IOTA_REGISTRY_TYPE=mongodb
+      - IOTA_LOG_LEVEL=INFO
+      - IOTA_TIMESTAMP=true
+      - IOTA_CB_NGSI_VERSION=v2
+      - IOTA_AUTOCAST=true
+      - IOTA_MONGO_HOST=mongo-db
+      - IOTA_MONGO_PORT=27017
+      - IOTA_MONGO_DB=iotagentjson
+      - IOTA_HTTP_PORT=7896
+      - IOTA_PROVIDER_URL=http://iot-agent:4041
+      - IOTA_MQTT_DISABLED=true
+      - IOTA_AMQP_DISABLED=true
+      - IOTA_MQTT_HOST=
+      - IOTA_DEFAULT_RESOURCE=/iot/json
+      - IOTA_DEFAULT_KEY=smartHomeKey
+    healthcheck:
+      test: ["CMD-SHELL", "node -e \"require('http').get('http://127.0.0.1:4041/iot/about',r=>process.exit(r.statusCode<500?0:1)).on('error',()=>process.exit(1))\""]
+      interval: 15s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+  # ========== Identity & Device Management (Keyrock + MySQL) ==========
+  mysql-db:
+    image: mysql:${MYSQL_VERSION:-5.7}
+    hostname: mysql-db
+    container_name: sh-mysql
+    profiles: ["idm", "full"]
+    networks: [smarthome]
+    extra_hosts: *fiware-hosts
+    ports:
+      - "${MYSQL_PORT:-3306}:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-secret}
+      - MYSQL_ROOT_HOST=%
+    volumes:
+      - mysql-data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p${MYSQL_ROOT_PASSWORD:-secret}"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 40s
+    deploy:
+      resources:
+        limits:
+          memory: 768M
+
+  keyrock:
+    image: fiware/idm:${KEYROCK_VERSION:-8.4.0}
+    hostname: keyrock
+    container_name: sh-keyrock
+    profiles: ["idm", "full"]
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+    networks: [smarthome]
+    extra_hosts: *fiware-hosts
+    ports:
+      - "${KEYROCK_PORT:-3005}:3005"
+    environment:
+      - DEBUG=idm:*
+      - IDM_DB_HOST=mysql-db
+      - IDM_DB_PASS=${IDM_DB_PASS:-secret}
+      - IDM_DB_USER=root
+      - IDM_HOST=${IDM_HOST:-http://localhost:3005}
+      - IDM_PORT=3005
+      - IDM_ADMIN_USER=${IDM_ADMIN_USER:-admin}
+      - IDM_ADMIN_EMAIL=${IDM_ADMIN_EMAIL:-admin@test.com}
+      - IDM_ADMIN_PASS=${IDM_ADMIN_PASS:-1234}
+      - IDM_HTTPS_ENABLED=false
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3005/version"]
+      interval: 15s
+      timeout: 10s
+      retries: 20
+      start_period: 60s
+    deploy:
+      resources:
+        limits:
+          memory: 768M
+
+  # ========== Data Management / History (QuantumLeap + CrateDB) ==========
+  redis-db:
+    image: redis:${REDIS_VERSION:-7.2}
+    hostname: redis-db
+    container_name: sh-redis
+    profiles: ["history", "full"]
+    networks: [smarthome]
+    extra_hosts: *fiware-hosts
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+
+  crate-db:
+    image: crate:${CRATE_VERSION:-5.6.1}
+    hostname: crate-db
+    container_name: sh-crate
+    profiles: ["history", "full"]
+    networks: [smarthome]
+    extra_hosts: *fiware-hosts
+    ports:
+      - "${CRATE_HTTP_PORT:-4200}:4200"
+      - "4300:4300"
+    command: >
+      crate
+      -Cauth.host_based.enabled=false
+      -Ccluster.name=smarthome
+      -Chttp.cors.enabled=true
+      -Chttp.cors.allow-origin=*
+      -Cdiscovery.type=single-node
+    environment:
+      - CRATE_HEAP_SIZE=${CRATE_HEAP_SIZE:-512m}
+    volumes:
+      - crate-data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4200/"]
+      interval: 15s
+      timeout: 10s
+      retries: 20
+      start_period: 60s
+    deploy:
+      resources:
+        limits:
+          memory: 1536M
+
+  quantumleap:
+    image: orchestracities/quantumleap:${QUANTUMLEAP_VERSION:-1.0.0}
+    hostname: quantumleap
+    container_name: sh-quantumleap
+    profiles: ["history", "full"]
+    depends_on:
+      crate-db:
+        condition: service_healthy
+      redis-db:
+        condition: service_started
+    networks: [smarthome]
+    extra_hosts: *fiware-hosts
+    ports:
+      - "${QUANTUMLEAP_PORT:-8668}:8668"
+    environment:
+      - CRATE_HOST=crate-db
+      - REDIS_HOST=redis-db
+      - REDIS_PORT=6379
+      - LOGLEVEL=INFO
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8668/version"]
+      interval: 15s
+      timeout: 5s
+      retries: 15
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+  # ========== Smart Home Application + Virtual Devices ==========
+  webapp:
+    build: ./app
+    hostname: webapp
+    container_name: sh-webapp
+    profiles: ["app", "full"]
+    depends_on:
+      orion:
+        condition: service_healthy
+    networks: [smarthome]
+    extra_hosts: *fiware-hosts
+    ports:
+      - "${WEBAPP_PORT:-8080}:8080"
+    environment:
+      - WEBAPP_SECRET_KEY=${WEBAPP_SECRET_KEY:-change-me-session-secret}
+      - ORION_URL=http://orion:1026
+      - IOTA_URL=http://iot-agent:4041
+      - QUANTUMLEAP_URL=http://quantumleap:8668
+      - KEYROCK_URL=http://keyrock:3005
+      - KEYROCK_PUBLIC_URL=${KEYROCK_PUBLIC_URL:-http://localhost:3005}
+      - OAUTH2_CLIENT_ID=${OAUTH2_CLIENT_ID:-smart-home-app}
+      - OAUTH2_CLIENT_SECRET=${OAUTH2_CLIENT_SECRET:-smart-home-secret-change-me}
+      - FIWARE_SERVICE=${FIWARE_SERVICE:-smartHome}
+      - FIWARE_SERVICEPATH=${FIWARE_SERVICEPATH:-/}
+      - AUTH_MODE=${AUTH_MODE:-keyrock}
+      - DEMO_ADMIN_EMAIL=${DEMO_ADMIN_EMAIL:-homeowner@smarthome.local}
+      - DEMO_ADMIN_PASSWORD=${DEMO_ADMIN_PASSWORD:-HomeOwner2022!}
+      - DEMO_GUEST_EMAIL=${DEMO_GUEST_EMAIL:-guest@smarthome.local}
+      - DEMO_GUEST_PASSWORD=${DEMO_GUEST_PASSWORD:-GuestView2022!}
+      - IDM_ADMIN_EMAIL=${IDM_ADMIN_EMAIL:-admin@test.com}
+      - IDM_ADMIN_PASS=${IDM_ADMIN_PASS:-1234}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/health')"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+
+  device-simulator:
+    build:
+      context: ./scripts
+      dockerfile: Dockerfile.simulator
+    hostname: device-simulator
+    container_name: sh-device-sim
+    profiles: ["app", "full"]
+    depends_on:
+      iot-agent:
+        condition: service_started
+      orion:
+        condition: service_started
+    networks: [smarthome]
+    extra_hosts: *fiware-hosts
+    environment:
+      - IOTA_URL=http://iot-agent:4041
+      - IOTA_SOUTH_URL=http://iot-agent:7896
+      - ORION_URL=http://orion:1026
+      - QUANTUMLEAP_URL=http://quantumleap:8668
+      - FIWARE_SERVICE=${FIWARE_SERVICE:-smartHome}
+      - FIWARE_SERVICEPATH=${FIWARE_SERVICEPATH:-/}
+      - API_KEY=smartHomeKey
+      - SIM_INTERVAL_SEC=10
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+
+  # ========== Interop (camera-ready 2026): second southbound interface ==========
+  # MQTT broker + IoT Agent for UltraLight 2.0 -> same Orion context, different
+  # transport (MQTT vs HTTP) and payload model (UL2.0 pipe-delimited vs JSON).
+  mosquitto:
+    image: eclipse-mosquitto:2.0
+    hostname: mosquitto
+    container_name: sh-mosquitto
+    profiles: ["interop", "full"]
+    networks: [smarthome]
+    extra_hosts: *fiware-hosts
+    ports:
+      - "${MQTT_PORT:-1883}:1883"
+    command: ["mosquitto", "-c", "/mosquitto-no-auth.conf"]
+    deploy:
+      resources:
+        limits:
+          memory: 64M
+
+  iot-agent-ul:
+    image: quay.io/fiware/iotagent-ul:${IOTA_UL_VERSION:-2.4.0}
+    hostname: iot-agent-ul
+    container_name: sh-iot-agent-ul
+    profiles: ["interop", "full"]
+    depends_on:
+      orion:
+        condition: service_healthy
+      mosquitto:
+        condition: service_started
+    networks: [smarthome]
+    extra_hosts: *fiware-hosts
+    ports:
+      - "${IOTA_UL_NORTH_PORT:-4061}:4061"
+      - "${IOTA_UL_SOUTH_PORT:-7897}:7897"
+    environment:
+      - IOTA_CB_HOST=orion
+      - IOTA_CB_PORT=1026
+      - IOTA_NORTH_PORT=4061
+      - IOTA_REGISTRY_TYPE=mongodb
+      - IOTA_LOG_LEVEL=INFO
+      - IOTA_TIMESTAMP=true
+      - IOTA_CB_NGSI_VERSION=v2
+      - IOTA_AUTOCAST=true
+      - IOTA_MONGO_HOST=mongo-db
+      - IOTA_MONGO_PORT=27017
+      - IOTA_MONGO_DB=iotagentul
+      - IOTA_HTTP_PORT=7897
+      - IOTA_PROVIDER_URL=http://iot-agent-ul:4061
+      - IOTA_MQTT_HOST=mosquitto
+      - IOTA_MQTT_PORT=1883
+      - IOTA_AMQP_DISABLED=true
+      - IOTA_DEFAULT_RESOURCE=/iot/d
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+networks:
+  smarthome:
+    name: smarthome-net
+    driver: bridge
+
+volumes:
+  mongo-data:
+  mysql-data:
+  crate-data:
+  redis-data:

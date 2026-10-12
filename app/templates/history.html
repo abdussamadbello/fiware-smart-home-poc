@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}History{% endblock %}
+{% block content %}
+<h1>Device / Sensor History</h1>
+<form method="get" class="card" style="display:flex;gap:1rem;align-items:end">
+  <div style="flex:1">
+    <label>Filter by room</label>
+    <select name="room" onchange="this.form.submit()">
+      <option value="">All rooms</option>
+      {% for r in rooms %}
+        <option value="{{ r }}" {% if selected_room==r %}selected{% endif %}>{{ r }}</option>
+      {% endfor %}
+    </select>
+  </div>
+</form>
+{% for row in rows %}
+<section class="card">
+  <h2>{{ row.type }} · {{ row.room }}</h2>
+  <p class="muted">{{ row.id }} · latest {{ row.attr }} = <strong>{{ row.latest }}</strong></p>
+  {% if row.history %}
+  <table>
+    <thead><tr><th>Time</th><th>Value</th></tr></thead>
+    <tbody>
+      {% for h in row.history[-15:] %}
+      <tr><td>{{ h.t }}</td><td>{{ h.v }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="muted">No QuantumLeap history yet (start history profile + wait for simulator samples).</p>
+  {% endif %}
+</section>
+{% else %}
+<p class="muted">No sensors found in Orion.</p>
+{% endfor %}
+{% endblock %}

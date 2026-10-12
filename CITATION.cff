@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: >-
+  If you use this software, please cite it and the original MSc thesis
+  (Abdussamad Bello, Atilim University, January 2022).
+title: "FIWARE Smart Home Reference Architecture — Proof of Concept"
+type: software
+authors:
+  - family-names: Bello
+    given-names: Abdussamad
+    orcid: "https://orcid.org/0000-0003-3278-9141"
+    email: abdussamad.bello@zulaiy.com
+version: "2026.1"
+date-released: "2026-09-22"
+year: 2026
+license: MIT
+repository-code: "https://github.com/abdussamadbello/fiware-smart-home-poc"
+keywords:
+  - FIWARE
+  - smart home
+  - Internet of Things
+  - reference architecture
+  - Orion Context Broker
+  - interoperability
+  - ProSA-RA
+references:
+  - type: thesis
+    title: "Design and Implementation of IoT-Based Reference Architecture for Smart Homes"
+    authors:
+      - family-names: Bello
+        given-names: Abdussamad
+    year: 2022
+    month: 1
+    institution:
+      name: Atilim University
+    thesis-type: MSc

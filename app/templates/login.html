@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="login-wrap card">
+  <h1>Smart Home Login</h1>
+  <p class="muted">Identity via Keyrock (OAuth2 / password). Auth mode: <code>{{ auth_mode }}</code></p>
+  {% if error %}<div class="alert err">{{ error }}</div>{% endif %}
+  <form method="post" action="/login">
+    <input type="hidden" name="next" value="{{ next }}"/>
+    <label>Username / Email</label>
+    <input type="email" name="email" required placeholder="{{ demo_admin }}" value="{{ demo_admin }}"/>
+    <label>Password</label>
+    <input type="password" name="password" required/>
+    <p style="margin-top:1rem"><button type="submit">Login</button></p>
+  </form>
+  <div class="alert info" style="margin-top:1rem">
+    <strong>Demo credentials</strong><br/>
+    Admin (toggle): <code>{{ demo_admin }}</code> / <code>HomeOwner2022!</code><br/>
+    Guest (view-only): <code>{{ demo_guest }}</code> / <code>GuestView2022!</code><br/>
+    Keyrock admin: <code>admin@test.com</code> / <code>1234</code>
+  </div>
+</div>
+{% endblock %}

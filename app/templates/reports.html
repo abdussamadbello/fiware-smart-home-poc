@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Reports{% endblock %}
+{% block content %}
+<h1>Reports / Visualization</h1>
+<p class="muted">Realtime-ish charts from QuantumLeap history (and current Orion values when history empty).</p>
+<div class="grid">
+{% for c in charts %}
+  <section class="card">
+    <h2 style="font-size:1rem;margin:0 0 .5rem">{{ c.title }}</h2>
+    <canvas class="chart-box" id="c{{ loop.index }}" width="400" height="160"
+      data-points='{{ c.points | tojson }}' data-color="{{ c.color }}" data-attr="{{ c.attr }}"></canvas>
+    {% if not c.points %}<p class="muted">No points yet.</p>{% endif %}
+  </section>
+{% else %}
+  <p class="muted">No chart data. Ensure simulator and QuantumLeap are running.</p>
+{% endfor %}
+</div>
+<script>
+function drawChart(canvas) {
+  const pts = JSON.parse(canvas.dataset.points || '[]');
+  const color = canvas.dataset.color || '#38bdf8';
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+  ctx.fillStyle = '#0f172a'; ctx.fillRect(0,0,w,h);
+  if (!pts.length) return;
+  const vals = pts.map(p => {
+    let v = p.v;
+    if (typeof v === 'boolean') v = v ? 1 : 0;
+    return Number(v);
+  });
+  const min = Math.min(...vals), max = Math.max(...vals);
+  const span = (max - min) || 1;
+  ctx.strokeStyle = color; ctx.lineWidth = 2; ctx.beginPath();
+  vals.forEach((v, i) => {
+    const x = (i / Math.max(vals.length - 1, 1)) * (w - 20) + 10;
+    const y = h - 15 - ((v - min) / span) * (h - 30);
+    if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+  });
+  ctx.stroke();
+  ctx.fillStyle = '#94a3b8'; ctx.font = '11px sans-serif';
+  ctx.fillText(String(min), 4, h - 4); ctx.fillText(String(max), 4, 12);
+}
+document.querySelectorAll('canvas.chart-box').forEach(drawChart);
+</script>
+{% endblock %}

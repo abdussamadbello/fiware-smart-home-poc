@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>{% block title %}Smart Home{% endblock %} · FIWARE PoC</title>
+  <link rel="stylesheet" href="/static/style.css"/>
+</head>
+<body>
+<header>
+  <div class="brand">FIWARE <span>Smart Home</span></div>
+  <nav>
+    {% if user %}
+      <a href="/devices">Devices</a>
+      <a href="/history">History</a>
+      <a href="/reports">Reports</a>
+      <a href="/logout">Logout ({{ user.name }})</a>
+    {% else %}
+      <a href="/login">Login</a>
+      <a href="/devices">Devices (public)</a>
+    {% endif %}
+  </nav>
+</header>
+<main>{% block content %}{% endblock %}</main>
+<footer class="footer">Thesis-faithful reimplementation 2026 · Abdussamad Bello MSc (Atilim, Jan 2022) Table 6.1</footer>
+</body>
+</html>

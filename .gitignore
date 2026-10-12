@@ -1,0 +1,55 @@
+# Secrets and local env (keep .env.example)
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+secrets/
+**/secrets/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Docker / compose volumes and data
+volumes/
+data/
+*.volume/
+mongo-data/
+mysql-data/
+crate-data/
+redis-data/
+
+# Logs and runtime
+*.log
+logs/
+tmp/
+.cache/
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+*~
+.DS_Store
+Thumbs.db
+
+# Optional local override compose
+docker-compose.override.yml
+*.aux
+*.out
+*.log
+paper/

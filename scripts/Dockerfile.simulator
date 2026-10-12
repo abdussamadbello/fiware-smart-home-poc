@@ -1,0 +1,6 @@
+FROM python:3.11-slim
+WORKDIR /sim
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY simulate_devices.py provision_and_simulate.py ./
+CMD ["python", "-u", "provision_and_simulate.py"]
