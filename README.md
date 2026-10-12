@@ -182,7 +182,6 @@ Smoke verification on a 2026 box run (see `docs/SMOKE_TEST.md`): **27** Orion en
 | Table 6.1 component → path | [THESIS_MAPPING.md](./THESIS_MAPPING.md) |
 | Functional requirements (rooms, sensors, actuators, roles) | same file |
 | Citation metadata | [CITATION.cff](./CITATION.cff) |
-| Short paper draft (preprint / workshop) | [paper/paper-draft.md](./paper/paper-draft.md) |
 
 ---
 
@@ -214,12 +213,10 @@ fiware-smart-home-poc/
   README.md
   app/                  # Smart Home web application
   scripts/              # Device provision + simulator + smoke tests
+  bench/                # Resource, latency, throughput and interop measurements
   docs/
     SMOKE_TEST.md
     screenshots/        # UI captures for README
-  paper/
-    paper-draft.md
-    COVER_NOTE.md
 ```
 
 ---
