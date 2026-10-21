@@ -1,0 +1,198 @@
+[
+    {
+        "id": "Temperature:Kitchen",
+        "type": "TemperatureSensor",
+        "TimeInstant": {
+            "type": "DateTime",
+            "value": "2026-10-12T06:11:29.081Z",
+            "metadata": {}
+        },
+        "category": {
+            "type": "Text",
+            "value": "sensor",
+            "metadata": {
+                "TimeInstant": {
+                    "type": "DateTime",
+                    "value": "2026-10-12T06:11:29.081Z"
+                }
+            }
+        },
+        "refRoom": {
+            "type": "Text",
+            "value": "Kitchen",
+            "metadata": {
+                "TimeInstant": {
+                    "type": "DateTime",
+                    "value": "2026-10-12T06:11:29.081Z"
+                }
+            }
+        },
+        "temperature": {
+            "type": "Number",
+            "value": 26.5,
+            "metadata": {
+                "TimeInstant": {
+                    "type": "DateTime",
+                    "value": "2026-10-12T06:11:29.081Z"
+                }
+            }
+        }
+    },
+    {
+        "id": "Temperature:Garage",
+        "type": "TemperatureSensor",
+        "TimeInstant": {
+            "type": "DateTime",
+            "value": "2026-10-12T06:11:31.008Z",
+            "metadata": {}
+        },
+        "category": {
+            "type": "Text",
+            "value": "sensor",
+            "metadata": {
+                "TimeInstant": {
+                    "type": "DateTime",
+                    "value": "2026-10-12T06:11:31.008Z"
+                }
+            }
+        },
+        "refRoom": {
+            "type": "Text",
+            "value": "Garage",
+            "metadata": {
+                "TimeInstant": {
+                    "type": "DateTime",
+                    "value": "2026-10-12T06:11:31.008Z"
+                }
+            }
+        },
+        "southbound": {
+            "type": "Text",
+            "value": "MQTT/UL2.0",
+            "metadata": {
+                "TimeInstant": {
+                    "type": "DateTime",
+                    "value": "2026-10-12T06:11:31.008Z"
+                }
+            }
+        },
+        "temperature": {
+            "type": "Number",
+            "value": 33.6,
+            "metadata": {
+                "TimeInstant": {
+                    "type": "DateTime",
+                    "value": "2026-10-12T06:11:31.008Z"
+                }
+            }
+        }
+    },
+    {
+        "id": "Humidity:Garage",
+        "type": "HumiditySensor",
+        "TimeInstant": {
+            "type": "DateTime",
+            "value": "2026-10-12T06:11:31.010Z",
+            "metadata": {}
+        },
+        "category": {
+            "type": "Text",
+            "value": "sensor",
+            "metadata": {
+                "TimeInstant": {
+                    "type": "DateTime",
+                    "value": "2026-10-12T06:11:31.010Z"
+                }
+            }
+        },
+        "refRoom": {
+            "type": "Text",
+            "value": "Garage",
+            "metadata": {
+                "TimeInstant": {
+                    "type": "DateTime",
+                    "value": "2026-10-12T06:11:31.010Z"
+                }
+            }
+        },
+        "relativeHumidity": {
+            "type": "Number",
+            "value": 41,
+            "metadata": {
+                "TimeInstant": {
+                    "type": "DateTime",
+                    "value": "2026-10-12T06:11:31.010Z"
+                }
+            }
+        },
+        "southbound": {
+            "type": "Text",
+            "value": "MQTT/UL2.0",
+            "metadata": {
+                "TimeInstant": {
+                    "type": "DateTime",
+                    "value": "2026-10-12T06:11:31.010Z"
+                }
+            }
+        }
+    },
+    {
+        "id": "SmartPlug:Kitchen",
+        "type": "SmartPlug",
+        "TimeInstant": {
+            "type": "DateTime",
+            "value": "2026-10-12T06:11:31.005Z",
+            "metadata": {}
+        },
+        "activePower": {
+            "type": "Number",
+            "value": 0,
+            "metadata": {
+                "TimeInstant": {
+                    "type": "DateTime",
+                    "value": "2026-10-12T06:11:31.005Z"
+                }
+            }
+        },
+        "category": {
+            "type": "Text",
+            "value": "sensor",
+            "metadata": {
+                "TimeInstant": {
+                    "type": "DateTime",
+                    "value": "2026-10-12T06:11:31.005Z"
+                }
+            }
+        },
+        "refRoom": {
+            "type": "Text",
+            "value": "Kitchen",
+            "metadata": {
+                "TimeInstant": {
+                    "type": "DateTime",
+                    "value": "2026-10-12T06:11:31.005Z"
+                }
+            }
+        },
+        "southbound": {
+            "type": "Text",
+            "value": "MQTT/UL2.0",
+            "metadata": {
+                "TimeInstant": {
+                    "type": "DateTime",
+                    "value": "2026-10-12T06:11:31.005Z"
+                }
+            }
+        },
+        "state": {
+            "type": "Text",
+            "value": "OFF",
+            "metadata": {
+                "TimeInstant": {
+                    "type": "DateTime",
+                    "value": "2026-10-12T06:11:31.005Z"
+                }
+            }
+        }
+    }
+]
