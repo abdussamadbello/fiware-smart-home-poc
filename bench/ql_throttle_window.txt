@@ -1,0 +1,8 @@
+before fix (throttling 1 s): 2026-10-21T19:07:00 2026-10-21T19:09:00
+MotionSensor {'Motion:Bedroom': 1, 'Motion:LivingRoom': 12}
+LuminositySensor {'Luminosity:Bedroom': 1, 'Luminosity:LivingRoom': 12}
+TemperatureSensor {'Temperature:Garage': 12, 'Temperature:LivingRoom': 12}
+after fix (throttling 0): 2026-10-21T19:09:16 2026-10-21T19:11:16
+MotionSensor {'Motion:Bedroom': 12, 'Motion:Hallway': 11, 'Motion:Kitchen': 11, 'Motion:LivingRoom': 12}
+LuminositySensor {'Luminosity:Bedroom': 12, 'Luminosity:Hallway': 11, 'Luminosity:Kitchen': 11, 'Luminosity:LivingRoom': 12}
+TemperatureSensor {'Temperature:Bedroom': 11, 'Temperature:Garage': 12, 'Temperature:Hallway': 11, 'Temperature:Kitchen': 11, 'Temperature:LivingRoom': 12}

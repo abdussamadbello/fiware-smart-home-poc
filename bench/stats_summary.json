@@ -2,199 +2,349 @@
  "stats_core_idle": {
   "containers": {
    "sh-device-sim": {
-    "cpu_pct_mean": 0.282,
-    "cpu_pct_max": 1.41,
-    "mem_mib_mean": 22.708000000000002
+    "n_samples": 5,
+    "cpu_pct_mean": 0.0,
+    "cpu_pct_max": 0.0,
+    "mem_mib_mean": 18.88
    },
    "sh-iot-agent": {
-    "cpu_pct_mean": 3.17,
-    "cpu_pct_max": 8.52,
-    "mem_mib_mean": 62.352
+    "n_samples": 5,
+    "cpu_pct_mean": 1.3519999999999999,
+    "cpu_pct_max": 6.46,
+    "mem_mib_mean": 49.077999999999996
    },
    "sh-webapp": {
-    "cpu_pct_mean": 0.156,
-    "cpu_pct_max": 0.16,
-    "mem_mib_mean": 57.652
+    "n_samples": 5,
+    "cpu_pct_mean": 1.884,
+    "cpu_pct_max": 8.81,
+    "mem_mib_mean": 47.074
    },
    "sh-orion": {
-    "cpu_pct_mean": 0.9199999999999999,
-    "cpu_pct_max": 2.66,
-    "mem_mib_mean": 13.978
+    "n_samples": 5,
+    "cpu_pct_mean": 0.476,
+    "cpu_pct_max": 2.31,
+    "mem_mib_mean": 4.383
    },
    "sh-mongo": {
-    "cpu_pct_mean": 11.51,
-    "cpu_pct_max": 52.86,
-    "mem_mib_mean": 214.88000000000002
+    "n_samples": 5,
+    "cpu_pct_mean": 0.8160000000000001,
+    "cpu_pct_max": 2.26,
+    "mem_mib_mean": 72.102
    }
   },
   "n_containers": 5,
-  "total_cpu_pct_mean": 16.038,
-  "total_mem_mib_mean": 371.57000000000005
+  "total_cpu_pct_mean": 4.528,
+  "total_mem_mib_mean": 191.517
  },
- "stats_core_load": {
+ "stats_core_load_iota": {
   "containers": {
    "sh-device-sim": {
-    "cpu_pct_mean": 0.1875,
-    "cpu_pct_max": 1.5,
-    "mem_mib_mean": 22.728749999999998
+    "n_samples": 10,
+    "cpu_pct_mean": 0.127,
+    "cpu_pct_max": 1.27,
+    "mem_mib_mean": 18.914
    },
    "sh-iot-agent": {
-    "cpu_pct_mean": 72.85625,
-    "cpu_pct_max": 110.19,
-    "mem_mib_mean": 124.72625
+    "n_samples": 10,
+    "cpu_pct_mean": 103.21600000000001,
+    "cpu_pct_max": 107.05,
+    "mem_mib_mean": 146.07
    },
    "sh-webapp": {
-    "cpu_pct_mean": 1.3375,
-    "cpu_pct_max": 9.6,
-    "mem_mib_mean": 62.29
+    "n_samples": 10,
+    "cpu_pct_mean": 0.9799999999999999,
+    "cpu_pct_max": 8.52,
+    "mem_mib_mean": 48.013
    },
    "sh-orion": {
-    "cpu_pct_mean": 20.09875,
-    "cpu_pct_max": 29.76,
-    "mem_mib_mean": 23.10875
+    "n_samples": 10,
+    "cpu_pct_mean": 28.028,
+    "cpu_pct_max": 31.16,
+    "mem_mib_mean": 5.1465
    },
    "sh-mongo": {
-    "cpu_pct_mean": 37.435,
-    "cpu_pct_max": 103.49,
-    "mem_mib_mean": 191.1
+    "n_samples": 10,
+    "cpu_pct_mean": 44.399,
+    "cpu_pct_max": 47.1,
+    "mem_mib_mean": 75.46000000000001
    }
   },
   "n_containers": 5,
-  "total_cpu_pct_mean": 131.915,
-  "total_mem_mib_mean": 423.95375
+  "total_cpu_pct_mean": 176.75,
+  "total_mem_mib_mean": 293.6035
+ },
+ "stats_core_load_orion": {
+  "containers": {
+   "sh-device-sim": {
+    "n_samples": 10,
+    "cpu_pct_mean": 0.142,
+    "cpu_pct_max": 1.42,
+    "mem_mib_mean": 18.887999999999998
+   },
+   "sh-iot-agent": {
+    "n_samples": 10,
+    "cpu_pct_mean": 0.067,
+    "cpu_pct_max": 0.31,
+    "mem_mib_mean": 51.358000000000004
+   },
+   "sh-webapp": {
+    "n_samples": 10,
+    "cpu_pct_mean": 1.0950000000000002,
+    "cpu_pct_max": 9.64,
+    "mem_mib_mean": 47.308
+   },
+   "sh-orion": {
+    "n_samples": 10,
+    "cpu_pct_mean": 40.281,
+    "cpu_pct_max": 43.74,
+    "mem_mib_mean": 5.9274000000000004
+   },
+   "sh-mongo": {
+    "n_samples": 10,
+    "cpu_pct_mean": 56.919,
+    "cpu_pct_max": 66.52,
+    "mem_mib_mean": 85.316
+   }
+  },
+  "n_containers": 5,
+  "total_cpu_pct_mean": 98.50399999999999,
+  "total_mem_mib_mean": 208.7974
  },
  "stats_full_idle": {
   "containers": {
-   "sh-keyrock": {
-    "cpu_pct_mean": 0.004,
-    "cpu_pct_max": 0.02,
-    "mem_mib_mean": 93.01
-   },
-   "sh-quantumleap": {
-    "cpu_pct_mean": 0.5980000000000001,
-    "cpu_pct_max": 1.84,
-    "mem_mib_mean": 74.348
-   },
-   "sh-iot-agent-ul": {
-    "cpu_pct_mean": 6.0920000000000005,
-    "cpu_pct_max": 30.46,
-    "mem_mib_mean": 97.714
-   },
-   "sh-mysql": {
-    "cpu_pct_mean": 0.082,
-    "cpu_pct_max": 0.11,
-    "mem_mib_mean": 230.4
-   },
-   "sh-crate": {
-    "cpu_pct_mean": 6.773999999999999,
-    "cpu_pct_max": 23.06,
-    "mem_mib_mean": 490.21999999999997
-   },
-   "sh-redis": {
-    "cpu_pct_mean": 0.14200000000000002,
-    "cpu_pct_max": 0.16,
-    "mem_mib_mean": 11.526
-   },
-   "sh-mosquitto": {
-    "cpu_pct_mean": 0.032,
-    "cpu_pct_max": 0.04,
-    "mem_mib_mean": 3.34
-   },
    "sh-device-sim": {
-    "cpu_pct_mean": 0.388,
-    "cpu_pct_max": 1.04,
-    "mem_mib_mean": 21.532
+    "n_samples": 5,
+    "cpu_pct_mean": 0.0,
+    "cpu_pct_max": 0.0,
+    "mem_mib_mean": 19.656
    },
    "sh-iot-agent": {
-    "cpu_pct_mean": 1.996,
-    "cpu_pct_max": 5.84,
-    "mem_mib_mean": 84.356
+    "n_samples": 5,
+    "cpu_pct_mean": 0.06999999999999999,
+    "cpu_pct_max": 0.15,
+    "mem_mib_mean": 55.943999999999996
+   },
+   "sh-iot-agent-ul": {
+    "n_samples": 5,
+    "cpu_pct_mean": 0.998,
+    "cpu_pct_max": 2.5,
+    "mem_mib_mean": 59.089999999999996
    },
    "sh-webapp": {
-    "cpu_pct_mean": 0.156,
-    "cpu_pct_max": 0.16,
-    "mem_mib_mean": 66.00800000000001
+    "n_samples": 5,
+    "cpu_pct_mean": 0.158,
+    "cpu_pct_max": 0.17,
+    "mem_mib_mean": 48.63
    },
    "sh-orion": {
-    "cpu_pct_mean": 0.43200000000000005,
-    "cpu_pct_max": 1.08,
-    "mem_mib_mean": 24.694
+    "n_samples": 5,
+    "cpu_pct_mean": 0.06999999999999999,
+    "cpu_pct_max": 0.35,
+    "mem_mib_mean": 5.2762
+   },
+   "sh-keyrock": {
+    "n_samples": 5,
+    "cpu_pct_mean": 0.316,
+    "cpu_pct_max": 1.58,
+    "mem_mib_mean": 120.54
+   },
+   "sh-quantumleap": {
+    "n_samples": 5,
+    "cpu_pct_mean": 0.194,
+    "cpu_pct_max": 0.62,
+    "mem_mib_mean": 67.952
    },
    "sh-mongo": {
-    "cpu_pct_mean": 1.6400000000000001,
-    "cpu_pct_max": 5.19,
-    "mem_mib_mean": 211.34
+    "n_samples": 5,
+    "cpu_pct_mean": 0.524,
+    "cpu_pct_max": 0.98,
+    "mem_mib_mean": 73.25800000000001
+   },
+   "sh-mosquitto": {
+    "n_samples": 5,
+    "cpu_pct_mean": 0.042,
+    "cpu_pct_max": 0.05,
+    "mem_mib_mean": 2.195
+   },
+   "sh-crate": {
+    "n_samples": 5,
+    "cpu_pct_mean": 1.5539999999999998,
+    "cpu_pct_max": 3.28,
+    "mem_mib_mean": 681.6600000000001
+   },
+   "sh-mysql": {
+    "n_samples": 5,
+    "cpu_pct_mean": 0.49800000000000005,
+    "cpu_pct_max": 2.29,
+    "mem_mib_mean": 216.5
+   },
+   "sh-redis": {
+    "n_samples": 5,
+    "cpu_pct_mean": 0.924,
+    "cpu_pct_max": 2.29,
+    "mem_mib_mean": 4.465
    }
   },
   "n_containers": 12,
-  "total_cpu_pct_mean": 18.336,
-  "total_mem_mib_mean": 1408.488
+  "total_cpu_pct_mean": 5.348,
+  "total_mem_mib_mean": 1355.1662000000001
  },
- "stats_full_load": {
+ "stats_full_load_iota": {
   "containers": {
-   "sh-keyrock": {
-    "cpu_pct_mean": 0.20875,
-    "cpu_pct_max": 1.67,
-    "mem_mib_mean": 93.43875
-   },
-   "sh-quantumleap": {
-    "cpu_pct_mean": 1.2975,
-    "cpu_pct_max": 3.37,
-    "mem_mib_mean": 74.71625
-   },
-   "sh-iot-agent-ul": {
-    "cpu_pct_mean": 0.11375,
-    "cpu_pct_max": 0.5,
-    "mem_mib_mean": 107.4
-   },
-   "sh-mysql": {
-    "cpu_pct_mean": 0.3425,
-    "cpu_pct_max": 2.39,
-    "mem_mib_mean": 230.4
-   },
-   "sh-crate": {
-    "cpu_pct_mean": 5.30375,
-    "cpu_pct_max": 13.94,
-    "mem_mib_mean": 616.875
-   },
-   "sh-redis": {
-    "cpu_pct_mean": 0.39375,
-    "cpu_pct_max": 2.25,
-    "mem_mib_mean": 11.52
-   },
-   "sh-mosquitto": {
-    "cpu_pct_mean": 0.02625,
-    "cpu_pct_max": 0.04,
-    "mem_mib_mean": 3.34
-   },
    "sh-device-sim": {
-    "cpu_pct_mean": 0.19125,
-    "cpu_pct_max": 1.53,
-    "mem_mib_mean": 21.56375
+    "n_samples": 10,
+    "cpu_pct_mean": 0.119,
+    "cpu_pct_max": 1.19,
+    "mem_mib_mean": 19.665
    },
    "sh-iot-agent": {
-    "cpu_pct_mean": 90.3375,
-    "cpu_pct_max": 111.56,
-    "mem_mib_mean": 150.1125
+    "n_samples": 10,
+    "cpu_pct_mean": 78.131,
+    "cpu_pct_max": 90.86,
+    "mem_mib_mean": 137.445
+   },
+   "sh-iot-agent-ul": {
+    "n_samples": 10,
+    "cpu_pct_mean": 0.203,
+    "cpu_pct_max": 1.58,
+    "mem_mib_mean": 65.167
    },
    "sh-webapp": {
-    "cpu_pct_mean": 0.44625,
-    "cpu_pct_max": 2.51,
-    "mem_mib_mean": 68.8825
+    "n_samples": 10,
+    "cpu_pct_mean": 0.28900000000000003,
+    "cpu_pct_max": 1.63,
+    "mem_mib_mean": 52.73
    },
    "sh-orion": {
-    "cpu_pct_mean": 25.4475,
-    "cpu_pct_max": 39.02,
-    "mem_mib_mean": 25.009999999999998
+    "n_samples": 10,
+    "cpu_pct_mean": 42.557,
+    "cpu_pct_max": 50.31,
+    "mem_mib_mean": 261.1
+   },
+   "sh-keyrock": {
+    "n_samples": 10,
+    "cpu_pct_mean": 0.182,
+    "cpu_pct_max": 1.5,
+    "mem_mib_mean": 120.67
+   },
+   "sh-quantumleap": {
+    "n_samples": 10,
+    "cpu_pct_mean": 119.261,
+    "cpu_pct_max": 135.1,
+    "mem_mib_mean": 112.17999999999999
    },
    "sh-mongo": {
-    "cpu_pct_mean": 45.785,
-    "cpu_pct_max": 77.95,
-    "mem_mib_mean": 224.15
+    "n_samples": 10,
+    "cpu_pct_mean": 45.196,
+    "cpu_pct_max": 92.06,
+    "mem_mib_mean": 91.619
+   },
+   "sh-mosquitto": {
+    "n_samples": 10,
+    "cpu_pct_mean": 0.027000000000000003,
+    "cpu_pct_max": 0.04,
+    "mem_mib_mean": 2.195
+   },
+   "sh-crate": {
+    "n_samples": 10,
+    "cpu_pct_mean": 30.089999999999996,
+    "cpu_pct_max": 34.62,
+    "mem_mib_mean": 875.6200000000001
+   },
+   "sh-mysql": {
+    "n_samples": 10,
+    "cpu_pct_mean": 0.27399999999999997,
+    "cpu_pct_max": 2.36,
+    "mem_mib_mean": 216.5
+   },
+   "sh-redis": {
+    "n_samples": 10,
+    "cpu_pct_mean": 0.505,
+    "cpu_pct_max": 2.11,
+    "mem_mib_mean": 4.505999999999999
    }
   },
   "n_containers": 12,
-  "total_cpu_pct_mean": 169.89375,
-  "total_mem_mib_mean": 1627.40875
+  "total_cpu_pct_mean": 316.834,
+  "total_mem_mib_mean": 1959.3970000000002
+ },
+ "stats_full_load_orion": {
+  "containers": {
+   "sh-device-sim": {
+    "n_samples": 10,
+    "cpu_pct_mean": 0.22800000000000004,
+    "cpu_pct_max": 1.18,
+    "mem_mib_mean": 19.664
+   },
+   "sh-iot-agent": {
+    "n_samples": 10,
+    "cpu_pct_mean": 2.051,
+    "cpu_pct_max": 8.38,
+    "mem_mib_mean": 52.40599999999999
+   },
+   "sh-iot-agent-ul": {
+    "n_samples": 10,
+    "cpu_pct_mean": 3.8690000000000007,
+    "cpu_pct_max": 36.49,
+    "mem_mib_mean": 67.83500000000001
+   },
+   "sh-webapp": {
+    "n_samples": 10,
+    "cpu_pct_mean": 0.27599999999999997,
+    "cpu_pct_max": 1.46,
+    "mem_mib_mean": 53.654999999999994
+   },
+   "sh-orion": {
+    "n_samples": 10,
+    "cpu_pct_mean": 94.631,
+    "cpu_pct_max": 142.87,
+    "mem_mib_mean": 409.11
+   },
+   "sh-keyrock": {
+    "n_samples": 10,
+    "cpu_pct_mean": 0.16899999999999998,
+    "cpu_pct_max": 1.43,
+    "mem_mib_mean": 120.45
+   },
+   "sh-quantumleap": {
+    "n_samples": 10,
+    "cpu_pct_mean": 116.90899999999999,
+    "cpu_pct_max": 148.04,
+    "mem_mib_mean": 112.28
+   },
+   "sh-mongo": {
+    "n_samples": 10,
+    "cpu_pct_mean": 40.469,
+    "cpu_pct_max": 49.38,
+    "mem_mib_mean": 75.721
+   },
+   "sh-mosquitto": {
+    "n_samples": 10,
+    "cpu_pct_mean": 0.024,
+    "cpu_pct_max": 0.04,
+    "mem_mib_mean": 2.195
+   },
+   "sh-crate": {
+    "n_samples": 10,
+    "cpu_pct_mean": 28.427999999999997,
+    "cpu_pct_max": 36.93,
+    "mem_mib_mean": 870.7
+   },
+   "sh-mysql": {
+    "n_samples": 10,
+    "cpu_pct_mean": 0.262,
+    "cpu_pct_max": 2.22,
+    "mem_mib_mean": 216.5
+   },
+   "sh-redis": {
+    "n_samples": 10,
+    "cpu_pct_mean": 0.315,
+    "cpu_pct_max": 1.91,
+    "mem_mib_mean": 4.5419
+   }
+  },
+  "n_containers": 12,
+  "total_cpu_pct_mean": 287.631,
+  "total_mem_mib_mean": 2005.0579
  }
 }

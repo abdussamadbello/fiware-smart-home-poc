@@ -279,7 +279,8 @@ def create_ql_subscriptions(client: httpx.Client) -> None:
                 "attrsFormat": "normalized",
                 "metadata": ["dateCreated", "dateModified"],
             },
-            "throttling": 1,
+            # No throttling: Orion throttles per *subscription*, not per entity, so a
+            # 1 s throttle dropped 3 of 4 same-type sensors updated in one tick.
         }
         r = client.post(f"{ORION}/v2/subscriptions", headers=HEADERS, json=sub)
         print(f"[subscription] {t} -> {r.status_code}")

@@ -1,0 +1,11 @@
+CPU(s):                                  8
+Model name:                              Intel(R) Xeon(R) Processor
+Thread(s) per core:                      1
+Socket(s):                               1
+               total        used        free      shared  buff/cache   available
+Mem:            15Gi        10Gi       3.8Gi        52Mi       2.1Gi       5.5Gi
+Linux 6.12.94+ x86_64
+Debian GNU/Linux 13 (trixie)
+26.1.5+dfsg1
+overlay         126G   40G   81G  33% /var/lib/docker
+container-other

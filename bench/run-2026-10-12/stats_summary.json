@@ -1,0 +1,200 @@
+{
+ "stats_core_idle": {
+  "containers": {
+   "sh-device-sim": {
+    "cpu_pct_mean": 0.282,
+    "cpu_pct_max": 1.41,
+    "mem_mib_mean": 22.708000000000002
+   },
+   "sh-iot-agent": {
+    "cpu_pct_mean": 3.17,
+    "cpu_pct_max": 8.52,
+    "mem_mib_mean": 62.352
+   },
+   "sh-webapp": {
+    "cpu_pct_mean": 0.156,
+    "cpu_pct_max": 0.16,
+    "mem_mib_mean": 57.652
+   },
+   "sh-orion": {
+    "cpu_pct_mean": 0.9199999999999999,
+    "cpu_pct_max": 2.66,
+    "mem_mib_mean": 13.978
+   },
+   "sh-mongo": {
+    "cpu_pct_mean": 11.51,
+    "cpu_pct_max": 52.86,
+    "mem_mib_mean": 214.88000000000002
+   }
+  },
+  "n_containers": 5,
+  "total_cpu_pct_mean": 16.038,
+  "total_mem_mib_mean": 371.57000000000005
+ },
+ "stats_core_load": {
+  "containers": {
+   "sh-device-sim": {
+    "cpu_pct_mean": 0.1875,
+    "cpu_pct_max": 1.5,
+    "mem_mib_mean": 22.728749999999998
+   },
+   "sh-iot-agent": {
+    "cpu_pct_mean": 72.85625,
+    "cpu_pct_max": 110.19,
+    "mem_mib_mean": 124.72625
+   },
+   "sh-webapp": {
+    "cpu_pct_mean": 1.3375,
+    "cpu_pct_max": 9.6,
+    "mem_mib_mean": 62.29
+   },
+   "sh-orion": {
+    "cpu_pct_mean": 20.09875,
+    "cpu_pct_max": 29.76,
+    "mem_mib_mean": 23.10875
+   },
+   "sh-mongo": {
+    "cpu_pct_mean": 37.435,
+    "cpu_pct_max": 103.49,
+    "mem_mib_mean": 191.1
+   }
+  },
+  "n_containers": 5,
+  "total_cpu_pct_mean": 131.915,
+  "total_mem_mib_mean": 423.95375
+ },
+ "stats_full_idle": {
+  "containers": {
+   "sh-keyrock": {
+    "cpu_pct_mean": 0.004,
+    "cpu_pct_max": 0.02,
+    "mem_mib_mean": 93.01
+   },
+   "sh-quantumleap": {
+    "cpu_pct_mean": 0.5980000000000001,
+    "cpu_pct_max": 1.84,
+    "mem_mib_mean": 74.348
+   },
+   "sh-iot-agent-ul": {
+    "cpu_pct_mean": 6.0920000000000005,
+    "cpu_pct_max": 30.46,
+    "mem_mib_mean": 97.714
+   },
+   "sh-mysql": {
+    "cpu_pct_mean": 0.082,
+    "cpu_pct_max": 0.11,
+    "mem_mib_mean": 230.4
+   },
+   "sh-crate": {
+    "cpu_pct_mean": 6.773999999999999,
+    "cpu_pct_max": 23.06,
+    "mem_mib_mean": 490.21999999999997
+   },
+   "sh-redis": {
+    "cpu_pct_mean": 0.14200000000000002,
+    "cpu_pct_max": 0.16,
+    "mem_mib_mean": 11.526
+   },
+   "sh-mosquitto": {
+    "cpu_pct_mean": 0.032,
+    "cpu_pct_max": 0.04,
+    "mem_mib_mean": 3.34
+   },
+   "sh-device-sim": {
+    "cpu_pct_mean": 0.388,
+    "cpu_pct_max": 1.04,
+    "mem_mib_mean": 21.532
+   },
+   "sh-iot-agent": {
+    "cpu_pct_mean": 1.996,
+    "cpu_pct_max": 5.84,
+    "mem_mib_mean": 84.356
+   },
+   "sh-webapp": {
+    "cpu_pct_mean": 0.156,
+    "cpu_pct_max": 0.16,
+    "mem_mib_mean": 66.00800000000001
+   },
+   "sh-orion": {
+    "cpu_pct_mean": 0.43200000000000005,
+    "cpu_pct_max": 1.08,
+    "mem_mib_mean": 24.694
+   },
+   "sh-mongo": {
+    "cpu_pct_mean": 1.6400000000000001,
+    "cpu_pct_max": 5.19,
+    "mem_mib_mean": 211.34
+   }
+  },
+  "n_containers": 12,
+  "total_cpu_pct_mean": 18.336,
+  "total_mem_mib_mean": 1408.488
+ },
+ "stats_full_load": {
+  "containers": {
+   "sh-keyrock": {
+    "cpu_pct_mean": 0.20875,
+    "cpu_pct_max": 1.67,
+    "mem_mib_mean": 93.43875
+   },
+   "sh-quantumleap": {
+    "cpu_pct_mean": 1.2975,
+    "cpu_pct_max": 3.37,
+    "mem_mib_mean": 74.71625
+   },
+   "sh-iot-agent-ul": {
+    "cpu_pct_mean": 0.11375,
+    "cpu_pct_max": 0.5,
+    "mem_mib_mean": 107.4
+   },
+   "sh-mysql": {
+    "cpu_pct_mean": 0.3425,
+    "cpu_pct_max": 2.39,
+    "mem_mib_mean": 230.4
+   },
+   "sh-crate": {
+    "cpu_pct_mean": 5.30375,
+    "cpu_pct_max": 13.94,
+    "mem_mib_mean": 616.875
+   },
+   "sh-redis": {
+    "cpu_pct_mean": 0.39375,
+    "cpu_pct_max": 2.25,
+    "mem_mib_mean": 11.52
+   },
+   "sh-mosquitto": {
+    "cpu_pct_mean": 0.02625,
+    "cpu_pct_max": 0.04,
+    "mem_mib_mean": 3.34
+   },
+   "sh-device-sim": {
+    "cpu_pct_mean": 0.19125,
+    "cpu_pct_max": 1.53,
+    "mem_mib_mean": 21.56375
+   },
+   "sh-iot-agent": {
+    "cpu_pct_mean": 90.3375,
+    "cpu_pct_max": 111.56,
+    "mem_mib_mean": 150.1125
+   },
+   "sh-webapp": {
+    "cpu_pct_mean": 0.44625,
+    "cpu_pct_max": 2.51,
+    "mem_mib_mean": 68.8825
+   },
+   "sh-orion": {
+    "cpu_pct_mean": 25.4475,
+    "cpu_pct_max": 39.02,
+    "mem_mib_mean": 25.009999999999998
+   },
+   "sh-mongo": {
+    "cpu_pct_mean": 45.785,
+    "cpu_pct_max": 77.95,
+    "mem_mib_mean": 224.15
+   }
+  },
+  "n_containers": 12,
+  "total_cpu_pct_mean": 169.89375,
+  "total_mem_mib_mean": 1627.40875
+ }
+}
